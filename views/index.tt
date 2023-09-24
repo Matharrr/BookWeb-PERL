@@ -1,0 +1,66 @@
+<% MACRO showbook(book) BLOCK %>
+<div class="book">
+  <table style="vertical-align: top">
+    <tr>
+      <th style="font-weight: normal">
+        <img src="<% book.image_url %>" width="100vh" />
+      </th>
+      <th style="vertical-align: top; font-weight: normal">
+        <table style="text-align: left; vertical-align: top">
+          <tr>
+            <th style="font-weight: normal">
+              <a href="https://amazon.co.uk/dp/<% book.isbn %>"
+                ><% book.title %></a
+              >
+            </th>
+          </tr>
+          <tr>
+            <th style="font-weight: normal">By <% book.author.name %></th>
+          </tr>
+          <tr>
+            <th style="font-weight: normal">
+              <% IF book.started %>Began reading: <% book.started.strftime('%d
+              %b %Y') %>.<% END %> <% IF book.ended %>Finished reading: <%
+              book.ended.strftime('%d %b %Y') %>.<% END %>
+            </th>
+          </tr>
+        </table>
+      </th>
+    </tr>
+  </table>
+</div>
+<% END %>
+
+<div id="page">
+  <div id="sidebar"></div>
+
+  <div id="content">
+    <div id="header">
+      <h1>BookWeb</h1>
+      <h2>Here's your reading list</h2>
+    </div>
+    <section>
+      <h3>Reading</h3>
+      <% IF reading.size %> <% FOREACH book IN reading %> <% showbook(book) %>
+      <% END %> <% ELSE %>
+      <p>No books found.</p>
+      <% END %>
+    </section>
+
+    <section>
+      <h3>Read</h3>
+      <% IF read.size %> <% FOREACH book IN read %> <% showbook(book) %> <% END
+      %> <% ELSE %>
+      <p>No books found.</p>
+      <% END %>
+    </section>
+
+    <section>
+      <h3>To Read</h3>
+      <% IF to_read.size %> <% FOREACH book IN to_read %> <% showbook(book) %>
+      <% END %> <% ELSE %>
+      <p>No books found.</p>
+      <% END %>
+    </section>
+  </div>
+</div>
